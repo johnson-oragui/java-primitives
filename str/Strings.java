@@ -21,6 +21,8 @@ public class Strings {
     System.out.println(result.first);
     System.out.println(result.second);
 
+    System.out.println(compressString("aabcccccaaa"));
+
   }
 
   /*
@@ -201,5 +203,47 @@ public class Strings {
     }
 
     return result;
+  }
+
+  /*
+   * 💻 Challenge: Compress a String
+   * Task:
+   * Given a string, return a compressed version of the string such that
+   * consecutive repeating characters are replaced with the character followed by
+   * the count of repeats.
+   * If the compressed string is not smaller than the original string, return the
+   * original string.
+   * 
+   * 🔸 Example 1:
+   * Input: "aabcccccaaa"
+   * Output: "a2b1c5a3"
+   * 
+   * 🔸 Example 2:
+   * Input: "abc"
+   * Output: "abc" (because compression "a1b1c1" is not shorter)
+   * 
+   * 🔧 Hint:
+   * You should use StringBuilder to build the compressed version as you iterate
+   * through the original string.
+   */
+
+  public static String compressString(String words) {
+    StringBuilder compressed = new StringBuilder();
+    char[] wordsChar = words.toCharArray();
+    int count = 1;
+
+    for (int i = 1; i < wordsChar.length; i++) {
+
+      if (wordsChar[i] == wordsChar[i - 1]) {
+        count++;
+      } else {
+        compressed.append(wordsChar[i - 1]).append(count);
+        count = 1;
+      }
+    }
+
+    compressed.append(words.charAt(words.length() - 1)).append(count);
+
+    return compressed.length() < words.length() ? compressed.toString() : words;
   }
 }
